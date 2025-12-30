@@ -219,6 +219,231 @@ let p=new URLSearchParams(location.search);
 if(p.get("name"))userName.value=p.get("name");
 if(p.get("img"))userImage.src=p.get("img");
 </script>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year 2026 🎆</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Sofia&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;user-select:none}
+body{
+font-family:Montserrat,sans-serif;
+background:radial-gradient(circle at top,#111,#000 70%);
+color:#fff;overflow-x:hidden}
+
+/* Fireworks */
+.fireworks:before{
+content:'';position:fixed;inset:0;
+background-image:
+radial-gradient(circle,gold 2px,transparent 3px),
+radial-gradient(circle,cyan 2px,transparent 3px),
+radial-gradient(circle,magenta 2px,transparent 3px);
+background-size:120px 120px;
+animation:fw 10s linear infinite;
+opacity:.15;z-index:-1}
+@keyframes fw{to{background-position:200px 400px}}
+
+/* Confetti */
+.confetti span{
+position:absolute;top:-10px;color:gold;
+animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+
+/* Curtain */
+#curtain{
+position:fixed;inset:0;background:#000;
+display:flex;align-items:center;justify-content:center;
+z-index:9999}
+#curtain button{
+padding:18px 30px;font-size:20px;
+background:gold;border:none;border-radius:50px;
+box-shadow:0 0 25px gold}
+.curtain-open{animation:open 1.5s forwards}
+@keyframes open{to{transform:scaleY(0);opacity:0}}
+
+/* Layout */
+.container{max-width:420px;margin:auto;padding:15px;text-align:center}
+h1{font-family:Sofia,cursive;font-size:40px;color:gold;text-shadow:0 0 20px gold}
+#ad{border:1px dashed #444;padding:10px;margin:15px 0}
+
+/* Frame */
+.frame{
+width:220px;height:220px;margin:20px auto;
+border:6px solid gold;border-radius:20px;
+box-shadow:0 0 30px gold;overflow:hidden}
+.frame img{width:100%;height:100%;object-fit:cover}
+
+/* Inputs */
+input,button{
+width:100%;padding:12px;margin:8px 0;border-radius:8px;border:none}
+input{background:#111;color:#fff;border:1px solid #444}
+button{background:linear-gradient(45deg,gold,orange);font-weight:bold}
+
+/* Quote */
+#quoteBox{
+margin:20px;padding:15px;border-radius:15px;
+background:rgba(255,215,0,.08);
+border:1px solid rgba(255,215,0,.4)}
+#newYearQuote{
+font-family:Sofia,cursive;font-size:20px;
+color:#ffd700;text-shadow:0 0 10px gold}
+
+/* Buttons */
+#musicBtn,#voiceBtn{
+position:fixed;right:15px;width:45px;height:45px;
+border-radius:50%;border:none;z-index:10}
+#musicBtn{top:15px;background:gold}
+#voiceBtn{top:70px;background:cyan}
+
+/* WhatsApp */
+#wa{
+position:fixed;bottom:0;left:0;right:0;
+background:#25D366;color:#fff;
+padding:14px;text-decoration:none;font-size:18px}
+</style>
+</head>
+
+<body oncontextmenu="return false" class="fireworks">
+
+<div id="curtain">
+<button onclick="openCurtain()">🎁 Tap to Open New Year Gift</button>
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<button id="musicBtn" onclick="toggleMusic()"><i class="fa fa-music"></i></button>
+<button id="voiceBtn" onclick="toggleVoice()"><i class="fa fa-microphone"></i></button>
+
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/audio/2022/12/20/audio_48e31c98a2.mp3">
+</audio>
+
+<audio id="quoteSound">
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_0f0a3b9c8e.mp3">
+</audio>
+
+<div class="container">
+
+<div id="ad"><!-- ADSTERRA_AD_SLOT --></div>
+
+<h1>Happy New Year 2026 🎆</h1>
+<div id="countdown"></div>
+
+<div id="quoteBox"><p id="newYearQuote"></p></div>
+
+<div class="frame">
+<img id="userImage" src="https://via.placeholder.com/300x300?text=2026">
+</div>
+
+<input id="userName" placeholder="Enter Your Name">
+<input type="file" id="imageUpload" accept="image/*">
+<button onclick="uploadImage()">Upload Photo</button>
+
+<div id="ad"><!-- ADSTERRA_AD_SLOT --></div>
+
+</div>
+
+<a id="wa" target="_blank"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+<div id="ad"><!-- ADSTERRA_AD_SLOT --></div>
+
+<script>
+/* Confetti */
+for(let i=0;i<40;i++){
+let s=document.createElement('span');
+s.innerText='2026';
+s.style.left=Math.random()*100+'%';
+s.style.animationDuration=5+Math.random()*5+'s';
+document.getElementById('confetti').appendChild(s);
+}
+
+/* Curtain */
+function openCurtain(){
+curtain.classList.add('curtain-open');
+bgMusic.play();
+speak("नया साल 2026 मुबारक हो");
+}
+
+/* Countdown */
+setInterval(()=>{
+let d=new Date("Jan 1, 2026 00:00:00")-new Date();
+if(d<0)return;
+countdown.innerText=
+`${Math.floor(d/86400000)}d ${Math.floor(d/3600000)%24}h ${Math.floor(d/60000)%60}m ${Math.floor(d/1000)%60}s`;
+},1000);
+
+/* Shayari */
+const quotes=[
+"✨ नया साल नई खुशियाँ लाए ✨",
+"🎆 2026 हो सपनों की उड़ान 🎆",
+"🌟 हर दिन हो सुनहरा 🌟",
+"🥂 नई शुरुआत मुबारक 🥂",
+"💫 खुशियों से भरा रहे साल 💫"
+];
+let qi=0;
+function changeQuote(){
+let t=quotes[qi];
+newYearQuote.innerText=t;
+quoteSound.play();
+speak(t);
+qi=(qi+1)%quotes.length;
+}
+changeQuote();setInterval(changeQuote,5000);
+
+/* AI Voice */
+let voiceOn=true;
+function speak(text){
+if(!voiceOn)return;
+speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance(text);
+u.lang="hi-IN";u.rate=.9;u.pitch=1.1;
+speechSynthesis.speak(u);
+}
+function toggleVoice(){
+voiceOn=!voiceOn;
+voiceBtn.style.opacity=voiceOn?1:.4;
+}
+
+/* Music */
+function toggleMusic(){
+bgMusic.paused?bgMusic.play():bgMusic.pause();
+}
+
+/* imgBB Upload */
+function uploadImage(){
+let f=imageUpload.files[0];
+let fd=new FormData();fd.append("image",f);
+fetch("https://api.imgbb.com/1/upload?key=c28768ae9242a313ffe5cc467ded4ef7",
+{method:"POST",body:fd})
+.then(r=>r.json()).then(d=>{
+userImage.src=d.data.url;
+generateLink(d.data.url);
+});
+}
+
+/* Link */
+function generateLink(img){
+let n=userName.value||"Someone";
+let url=`https://yourdomain.com/?name=${n}&img=${img}`;
+wa.href=`https://wa.me/?text=${encodeURIComponent(n+" ने आपको New Year Gift भेजा 🎁 "+url)}`;
+}
+
+/* Load URL */
+let p=new URLSearchParams(location.search);
+if(p.get("name"))userName.value=p.get("name");
+if(p.get("img"))userImage.src=p.get("img");
+</script>
 
 </body>
 </html>
+
+</body>
+</html>
+
